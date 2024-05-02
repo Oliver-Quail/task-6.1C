@@ -28,6 +28,7 @@ pipeline {
         stage("Code Analysis") {
             steps {
                 echo "Code Analysis is done using estlint which is installed in the react project"
+            }
         }
         stage("Security Scan") {
             steps {
