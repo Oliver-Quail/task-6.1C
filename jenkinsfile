@@ -1,0 +1,59 @@
+pipeline {
+    agent any 
+
+
+
+    tools {
+        nodejs "20.9.0"
+    }
+
+    stages{
+        stage("Build") {
+            steps {
+                    echo "Application is built using the react native build script"    
+                }
+            }
+        stage("Unit Intergration Test") {
+            steps {
+                echo "Unit intergration tests are performed using Selenium and C#" 
+            }
+            post {
+                    success {
+                        mail to: "oliver.quail3@gmail.com",
+                        subject: "Build Status: Sucess",
+                        body: "Build was successful"
+                    }
+            }
+        }
+        stage("Code Analysis") {
+            steps {
+                echo "Code Analysis is done using estlint which is installed in the react project"
+        }
+        stage("Security Scan") {
+            steps {
+                echo "This is done by using SNYK security"
+            }
+            post {
+                    success {
+                        mail to: "oliver.quail3@gmail.com",
+                        subject: "Security Sacn Status: Sucess",
+                        body: "Security Scan was successful"
+                    }
+                }
+        }
+        //SNYK_ORGANISATION
+        stage("Intergration Tests on Staging") {
+            steps {
+                echo "Firstly the project is transfered using ftp to an external server with the"
+                echo "Publish over plugin tool"
+                echo "After this Selinium is used again with the same tests used in 'Unit Intergration Tests' stage"
+            }
+        }
+        stage("Deploy to Production") {
+            steps {
+                echo "Tthe project is transfered using ftp to an external server with the"
+                echo "Publish over plugin tool"
+            }
+        }
+    }
+}
